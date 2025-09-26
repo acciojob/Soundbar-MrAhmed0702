@@ -3,22 +3,18 @@ const buttons = document.querySelectorAll('.btn');
 const stopButton = document.querySelector('.stop');
 let currentAudio = null;
 
-buttons.forEach(button => {
-	button.addEventListener('click' , () => {
-		const soundName = button.dataset.sound;
-		if (currentAudio) {
-			currentAudio.pause();
-	        currentAudio.currentTime = 0;
-	    }
+const audioElement = document.createElement('audio');
+document.body.appendChild(audioElement);
 
-	    currentAudio = new Audio(`sounds/${soundName}.mp3`);
-		currentAudio.play();
-	});
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const soundName = button.dataset.sound;
+    audioElement.src = `sounds/${soundName}.mp3`;
+    audioElement.play();
+  });
 });
 
 stopButton.addEventListener('click', () => {
-	if (currentAudio) {
-		currentAudio.pause();
-	    currentAudio.currentTime = 0;
-	}
+  audioElement.pause();
+  audioElement.currentTime = 0;
 });
